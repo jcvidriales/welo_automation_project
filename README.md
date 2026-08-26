@@ -15,3 +15,15 @@ Python automation project for processing and classifying movie and TV content us
 - CSV
 - AI API integration
 - Git & GitHub
+
+## How to Run
+
+1. Clone the repository
+2. Create and activate a Python virtual environment
+3. Install the required dependencies
+4. Add your API key to a `.env` file
+5. Run the program:
+
+```bash
+python main.py
+```
