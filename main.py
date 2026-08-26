@@ -71,10 +71,14 @@ Return only one genre.
 
 def main():
     movies = []
+    try:
 
-    with open("input_movies.csv", "r", encoding="utf-8") as file:
-        reader = csv.DictReader(file)
-        movies = list(reader)
+        with open("input_movies.csv", "r", encoding="utf-8") as file:
+            reader = csv.DictReader(file)
+            movies = list(reader)
+    except FileNotFoundError:
+            print("Error: input_movies.csv not found.")
+            return
     classified_movies = []
     for item in movies:
         try:
