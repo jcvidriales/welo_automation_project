@@ -21,6 +21,9 @@ Python automation project for processing and classifying movie and TV content us
 1. Clone the repository
 2. Create and activate a Python virtual environment
 3. Install the required dependencies
+```bash
+pip install -r requirements.txt
+```
 4. Add your API key to a `.env` file
 5. Run the program:
 
