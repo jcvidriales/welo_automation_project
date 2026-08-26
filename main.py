@@ -68,24 +68,29 @@ Return only one genre.
     if genre not in allowed_genres:
         return "Unknown"
     return genre
-movies = []
 
-with open("input_movies.csv", "r", encoding="utf-8") as file:
-    reader = csv.DictReader(file)
-    movies = list(reader)
-classified_movies = []
-for item in movies:
-    try:
-        classification = classify_movie(item)
-        ai_genre = ai_classify_genre(item["description"])
-        print(item["title"], "->", ai_genre)
-        classification["genre"] = ai_genre
-        classified_movies.append(classification)
-    except Exception as e:
-        print("Error en:", item["title"], "-", e)
-        classification["genre"] = "Unknown"
-        classified_movies.append(classification)
-with open("classified_movies.csv", "w", newline="", encoding="utf-8") as file:
-    writer = csv.DictWriter(file, fieldnames=["title", "genre", "duration_category", "type"])
-    writer.writeheader()
-    writer.writerows(classified_movies)
+def main():
+    movies = []
+
+    with open("input_movies.csv", "r", encoding="utf-8") as file:
+        reader = csv.DictReader(file)
+        movies = list(reader)
+    classified_movies = []
+    for item in movies:
+        try:
+            classification = classify_movie(item)
+            ai_genre = ai_classify_genre(item["description"])
+            print(item["title"], "->", ai_genre)
+            classification["genre"] = ai_genre
+            classified_movies.append(classification)
+        except Exception as e:
+            print("Error en:", item["title"], "-", e)
+            classification["genre"] = "Unknown"
+            classified_movies.append(classification)
+    with open("classified_movies.csv", "w", newline="", encoding="utf-8") as file:
+        writer = csv.DictWriter(file, fieldnames=["title", "genre", "duration_category", "type"])
+        writer.writeheader()
+        writer.writerows(classified_movies)
+
+if __name__ == "__main__":
+    main()
