@@ -76,9 +76,11 @@ def main():
         with open("input_movies.csv", "r", encoding="utf-8") as file:
             reader = csv.DictReader(file)
             movies = list(reader)
+            if not movies:
+                print("Warning: input_movies.csv is empty.")
     except FileNotFoundError:
-            print("Error: input_movies.csv not found.")
-            return
+                print("Error: input_movies.csv not found.")
+                return
     classified_movies = []
     for item in movies:
         try:
