@@ -75,6 +75,10 @@ def main():
 
         with open("input_movies.csv", "r", encoding="utf-8") as file:
             reader = csv.DictReader(file)
+            required_fields = {"title", "description", "duration_minutes", "type"}
+            if not required_fields.issubset(reader.fieldnames or []):
+                print("Error: input_movies.csv is missing required columns.")
+                return
             movies = list(reader)
             if not movies:
                 print("Warning: input_movies.csv is empty.")
