@@ -91,6 +91,9 @@ def main():
             if not all(item.get(field, "").strip() for field in required_fields):
                 print("Warning: skipping row with missing data.")
                 continue
+            if not item["duration_minutes"].isdigit() or int(item["duration_minutes"]) <= 0:
+                print("Warning: skipping row with invalid duration.")
+                continue
             classification = classify_movie(item)
             ai_genre = ai_classify_genre(item["description"])
             print(item["title"], "->", ai_genre)
