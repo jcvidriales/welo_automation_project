@@ -88,6 +88,9 @@ def main():
     classified_movies = []
     for item in movies:
         try:
+            if not all(item.get(field, "").strip() for field in required_fields):
+                print("Warning: skipping row with missing data.")
+                continue
             classification = classify_movie(item)
             ai_genre = ai_classify_genre(item["description"])
             print(item["title"], "->", ai_genre)
