@@ -51,6 +51,8 @@ def classify_movie(movie):
     }
 
 def ai_classify_genre(description):
+    if not description or len(description.strip()) < 10:
+        return "Unknown"
     try:
             response = client.responses.create(
             model="gpt-5",
