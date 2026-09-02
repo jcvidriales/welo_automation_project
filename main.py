@@ -51,24 +51,27 @@ def classify_movie(movie):
     }
 
 def ai_classify_genre(description):
-    response = client.responses.create(
-        model="gpt-5",
-        input=f"""
-Classify the genre of this movie or TV show.
-Choose the genre from this list: Action, Comedy, Drama, Horror, Romance, Animation, Superhero, Supernatural.
-Description:
-{description}
+    try:
+            response = client.responses.create(
+            model="gpt-5",
+            input=f"""
+    Classify the genre of this movie or TV show.
+    Choose the genre from this list: Action, Comedy, Drama, Horror, Romance, Animation, Superhero, Supernatural.
+    Description:
+    {description}
 
-Return only one genre.
-"""
-    )
+    Return only one genre.
+    """
+        )
 
-    genre = response.output_text.strip().rstrip(".").capitalize()
-    allowed_genres = ["Action", "Comedy", "Drama", "Horror", "Romance", "Animation", "Superhero", "Supernatural"]
-    if genre not in allowed_genres:
+            genre = response.output_text.strip().rstrip(".").capitalize()
+            allowed_genres = ["Action", "Comedy", "Drama", "Horror", "Romance", "Animation", "Superhero", "Supernatural"]
+            if genre not in allowed_genres:
+                return "Unknown"
+            return genre
+    except Exception as e:
+        print("AI classification failed:", e)
         return "Unknown"
-    return genre
-
 def main():
     movies = []
     try:
