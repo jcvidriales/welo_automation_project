@@ -94,6 +94,9 @@ def main():
             if not item["duration_minutes"].isdigit() or int(item["duration_minutes"]) <= 0:
                 print("Warning: skipping row with invalid duration.")
                 continue
+            if item["type"] not in ["Movie", "TV Show"]:
+                print("Warning: skipping row with invalid type.")
+                continue
             classification = classify_movie(item)
             ai_genre = ai_classify_genre(item["description"])
             print(item["title"], "->", ai_genre)
