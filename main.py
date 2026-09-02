@@ -66,7 +66,7 @@ def ai_classify_genre(description):
     """
         )
 
-            genre = response.output_text.strip().rstrip(".").capitalize()
+            genre = response.output_text.strip().rstrip(".").title()
             allowed_genres = ["Action", "Comedy", "Drama", "Horror", "Romance", "Animation", "Superhero", "Supernatural"]
             if genre not in allowed_genres:
                 return "Unknown"
