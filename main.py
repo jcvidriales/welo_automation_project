@@ -10,16 +10,6 @@ if not api_key:
     print("No se encontró la API key")
     exit()
 client = OpenAI(api_key=api_key)
-def classify_content(movie):
-    genre = movie["genre"].lower()
-    if genre == "action":
-        return "Action"
-    elif genre == "comedy":
-        return "Comedy"
-    elif genre == "drama":
-        return "Drama" 
-    else:
-        return "Other"
 def classify_duration(movie):
     duration = int(movie["duration_minutes"])
 
