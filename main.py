@@ -111,7 +111,12 @@ def main():
             classified_movies.append(classification)
         except Exception as e:
             print("Error en:", item["title"], "-", e)
-            classification["genre"] = "Unknown"
+            classification = {
+                "title": item.get("title", "Unknown"),
+                "genre": "Unknown",
+                "duration_category": "Unknown",
+                "type": item.get("type", "Unknown")
+            }
             classified_movies.append(classification)
     with open("classified_movies.csv", "w", newline="", encoding="utf-8") as file:
         writer = csv.DictWriter(file, fieldnames=["title", "genre", "duration_category", "type"])
