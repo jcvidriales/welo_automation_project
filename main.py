@@ -3,6 +3,16 @@ import os
 from openai import OpenAI
 import csv
 load_dotenv()
+ALLOWED_GENRES = [
+    "Action",
+    "Comedy",
+    "Drama",
+    "Horror",
+    "Romance",
+    "Animation",
+    "Superhero",
+    "Supernatural",
+]
 
 api_key = os.getenv("OPENAI_API_KEY")
 
@@ -44,11 +54,12 @@ def ai_classify_genre(description):
     if not description or len(description.strip()) < 10:
         return "Unknown"
     try:
+            genre_options = ", ".join(ALLOWED_GENRES)
             response = client.responses.create(
             model="gpt-5",
             input=f"""
     Classify the genre of this movie or TV show.
-    Choose the genre from this list: Action, Comedy, Drama, Horror, Romance, Animation, Superhero, Supernatural.
+    Choose the genre from this list: {genre_options}.
     Description:
     {description}
 
@@ -57,7 +68,7 @@ def ai_classify_genre(description):
         )
 
             genre = response.output_text.strip().rstrip(".").title()
-            allowed_genres = ["Action", "Comedy", "Drama", "Horror", "Romance", "Animation", "Superhero", "Supernatural"]
+            allowed_genres = ALLOWED_GENRES
             genre = genre.replace('"', "").replace("'", "")
             if genre not in allowed_genres:
                 return "Unknown"
