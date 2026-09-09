@@ -23,7 +23,7 @@ def classify_duration(movie):
         return "Long"
          
 def classify_type(movie):
-    content_type = movie["type"].lower()
+    content_type = movie["type"].strip().lower()
     
     if content_type == "movie":
         return "Movie"
