@@ -101,8 +101,8 @@ def main():
             if not item["duration_minutes"].isdigit() or int(item["duration_minutes"]) <= 0:
                 print("Warning: skipping row with invalid duration.")
                 continue
-            item["type"] = item["type"].strip()
-            if item["type"] not in ["Movie", "TV Show"]:
+            item["type"] = classify_type(item)
+            if item["type"] == "Other":
                 print("Warning: skipping row with invalid type.")
                 continue
             classification = classify_movie(item)
