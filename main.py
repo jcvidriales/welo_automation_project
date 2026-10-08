@@ -23,15 +23,18 @@ client = OpenAI(api_key=api_key)
 def classify_duration(movie):
     duration = int(movie["duration_minutes"])
 
-    if duration < 90:
+    if classify_type(movie) == "TV Show":
+        short_limit, medium_limit = 30, 60
+    else:
+        short_limit, medium_limit = 90, 120
+
+    if duration < short_limit:
         return "Short"
-
-    elif duration <= 120:
+    elif duration <= medium_limit:
         return "Medium"
-
     else:
         return "Long"
-         
+    
 def classify_type(movie):
     content_type = movie["type"].strip().lower()
     
