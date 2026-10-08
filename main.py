@@ -56,29 +56,29 @@ def classify_movie(movie):
 def ai_classify_genre(description):
     if not description or len(description.strip()) < 10:
         return "Unknown"
+
+    genre_options = ", ".join(ALLOWED_GENRES)
+    prompt = (
+        "Classify the genre of this movie or TV show.\n"
+        f"Choose the genre from this list: {genre_options}.\n"
+        "Return only one genre.\n\n"
+        f"Description: {description}"
+    )
+
     try:
-            genre_options = ", ".join(ALLOWED_GENRES)
-            response = client.responses.create(
-            model="gpt-5",
-            input=f"""
-    Classify the genre of this movie or TV show.
-    Choose the genre from this list: {genre_options}.
-    Description:
-    {description}
-
-    Return only one genre.
-    """
-        )
-
-            genre = response.output_text.strip().rstrip(".").title()
-            allowed_genres = ALLOWED_GENRES
-            genre = genre.replace('"', "").replace("'", "")
-            if genre not in allowed_genres:
-                return "Unknown"
-            return genre
+        response = client.responses.create(model="gpt-5", input=prompt)
     except Exception as e:
         print("AI classification failed:", e)
         return "Unknown"
+
+    genre = response.output_text.replace('"', "").replace("'", "")
+    genre = genre.strip().rstrip(".").title()
+
+    if genre not in ALLOWED_GENRES:
+        return "Unknown"
+    return genre
+
+
 def main():
     movies = []
     try:
