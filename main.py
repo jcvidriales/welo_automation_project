@@ -17,7 +17,7 @@ ALLOWED_GENRES = [
 api_key = os.getenv("OPENAI_API_KEY")
 
 if not api_key:
-    print("No se encontró la API key")
+        print("Error: OPENAI_API_KEY not found in .env file.")
     exit()
 client = OpenAI(api_key=api_key)
 def classify_duration(movie):
