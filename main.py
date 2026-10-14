@@ -14,12 +14,14 @@ ALLOWED_GENRES = [
     "Supernatural",
 ]
 
-api_key = os.getenv("OPENAI_API_KEY")
+def get_client():
+    api_key = os.getenv("OPENAI_API_KEY")
+    if not api_key:
+        print("Error: OPENAI_API_KEY not found in .env file.")
+        exit()
+    return OpenAI(api_key=api_key)
 
-if not api_key:
-    print("Error: OPENAI_API_KEY not found in .env file.")
-    exit()
-client = OpenAI(api_key=api_key)
+
 def classify_duration(movie):
     duration = int(movie["duration_minutes"])
 
@@ -53,7 +55,7 @@ def classify_movie(movie):
         "type": classify_type(movie)
     }
 
-def ai_classify_genre(description):
+def ai_classify_genre(description, client):
     if not description or len(description.strip()) < 10:
         return "Unknown"
 
@@ -80,6 +82,7 @@ def ai_classify_genre(description):
 
 
 def main():
+    client = get_client()
     movies = []
     try:
 
@@ -109,7 +112,7 @@ def main():
                 print("Warning: skipping row with invalid type.")
                 continue
             classification = classify_movie(item)
-            ai_genre = ai_classify_genre(item["description"])
+            ai_genre = ai_classify_genre(item["description"], client)
             print(item["title"], "->", ai_genre)
             classification["genre"] = ai_genre
             classified_movies.append(classification)
