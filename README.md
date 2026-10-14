@@ -96,6 +96,7 @@ welo_automation_project/
 - Integrating an AI API and constraining its output to a fixed set of values
 - Keeping secrets out of the code with environment variables
 - Using Git with small, descriptive commits
+- Writing automated tests with pytest
 
 ## Possible Improvements
 
