@@ -71,7 +71,7 @@ A Python tool that reads a list of movies and TV shows from a CSV file, classifi
 
 ## Running Tests
 
-The duration and content type logic is covered by automated tests (no API key needed):
+The duration, content type and AI genre logic are covered by automated tests. The OpenAI API is replaced with mocks, so no API key or credit is needed:
 
 ```bash
 pytest
@@ -97,9 +97,10 @@ welo_automation_project/
 - Keeping secrets out of the code with environment variables
 - Using Git with small, descriptive commits
 - Writing automated tests with pytest
+- Using mocks to test code that depends on an external API
 
 ## Possible Improvements
 
-- Add tests for the AI genre classification using mocks
+- Run the tests automatically on every push with GitHub Actions
 - Allow the input and output file names to be passed as arguments
 - Support more genres or multiple genres per title
